@@ -9,7 +9,10 @@ app.engine('hbs',handlebar.engine({
 app.set('view engine','hbs')
 app.set('views',path.join(__dirname,'views'))
 app.get('/',(req,res)=>{
-    res.render('home')
+    res.render('home',{title:"Home"})
+})
+app.get('/login',(req,res)=>{
+    res.render('login',{title:"Login"})
 })
 app.listen(3000,()=>{
     console.log('localhost3000')
