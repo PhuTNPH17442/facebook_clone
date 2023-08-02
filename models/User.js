@@ -18,12 +18,12 @@ const userSchema = new Schema({
         type:String
     },
     avatar:{
-        type:Buffer
+        type:String
     },
     stories: [{ type: mongoose.Schema.Types.ObjectId, ref: "blog" }],
-    avatarType:{
-        type:String
-    }
+    // avatarType:{
+    //     type:String
+    // }
 
 },{timestamps:true})
 
