@@ -6,9 +6,11 @@ const session = require('express-session')
 const methodOverride = require('method-override')
 const multer = require('multer')
 const auth = require('./routes/auth')
+const post = require('./routes/blog')
 const User = require('./models/User')
 const path = require('path')
-const { error } = require('console')
+const { error } = require('console');
+const Blog = require('./models/blog');
 const app = express()
 require('dotenv').config()
 app.use(bodyParser.json());
@@ -29,10 +31,25 @@ app.use(express.urlencoded({
     db.once('open', () => {
       console.log('MongoDB database connection established successfully');
     });
-
+//checklogin
+const checkLogin = (req, res, next) => {
+  // Kiểm tra thông tin session hoặc token để xác định người dùng đã đăng nhập hay chưa
+  const userId = req.session.userId; // Sử dụng thông tin từ session, bạn có thể thay bằng token nếu đang sử dụng cơ chế xác thực khác
+  if (userId) {
+    // Nếu đã đăng nhập, tiếp tục thực hiện request
+    next();
+  } else {
+    // Nếu chưa đăng nhập, chuyển hướng đến trang login
+    res.redirect('/login');
+  }
+};
 //view engine
 app.engine('hbs', handlebar.engine({
-    extname: '.hbs'
+    extname: '.hbs',
+    runtimeOptions: {
+      allowProtoPropertiesByDefault: true,
+      allowProtoMethodsByDefault: true,
+    },
 }))
 app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, 'views'))
@@ -45,10 +62,14 @@ app.use(session({
     cookie: { secure: false }
 }));
 //get routes
-app.get('/', (req, res) => {
+app.get('/',checkLogin, async(req, res) => {
   const userData = req.session.userData;
-  const userId = req.session.userId
-    res.render('home', { title: "Home",userData,userId })
+  const userId = req.session.userId;
+    const blogs = await Blog.find().populate('author','username avatar').sort({createAt:-1}).exec()
+    blogs.forEach(blog =>{
+      blog.formattedDate = blog.createAt.toLocaleDateString();
+    })
+    res.render('home', { title: "Home",userData,userId,blogs})
 })
 app.get('/login', (req, res) => {
     res.render('login', { title: "Login" })
@@ -91,6 +112,7 @@ app.post('/upload', upload.single('avatar'), async (req, res) => {
     res.send('Upload thành công!');
   });
 app.use('/',auth)
+app.use('/',post)
 app.listen(3000, () => {
     console.log('localhost3000')
 })

@@ -68,10 +68,11 @@ const login = async (req, res, next) => {
     });
     // const base64String = user.avatar.toString('base64');
     req.session.userId = user._id;
+    req.session.token = token;
     req.session.userData = { username: user.username, avatar: user.avatar,description:user.description }
     const userData = { username: user.username, avatar: user.avatar,description:user.description }
     // res.status(200).json(token)
-    res.status(200).render('home', { userData, token })
+    res.status(200).redirect('/')
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: error });

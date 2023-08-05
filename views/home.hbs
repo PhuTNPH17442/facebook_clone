@@ -166,6 +166,28 @@
       margin-left: 70%;
       margin-top: 4px;
     }
+    .midle .all-status {
+        width: 500px;
+        height: 600px;
+        border: 3px solid black;
+        border-radius: 10px;
+        margin-top: 10px;
+    }
+    .midle .all-status .inf-author{
+        display: flex;
+        max-height: 50px;
+    }
+    .avatar-author{
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-left: 10px;
+    }
+    .inf-blog img{
+      width: 450px;
+      height: 450px;
+      margin-left: 20px;
+    }
   </style>
   <div class="midle">
     <div class="new-status">
@@ -183,7 +205,19 @@
             <button type="submit" class="btn btn-primary">Đăng bài</button>
         </form>
     </div>
-
+    {{#each blogs}}
+    <div class="all-status">
+        <div class="inf-author">
+            <img class="avatar-author" src="data:image/jpeg;base64,{{author.avatar}}" alt="">
+            <p style="margin-left: 10px;">{{author.username}}</p>
+        </div>
+        <div class="inf-blog">
+            <p style="margin-left: 10px; font-style: italic; font-size: 10px;">Ngày Xuất Bản : {{formattedDate}}</p>
+            <p style="margin-left: 10px;font-style: normal;font-size: 20px;">{{context}}</p>
+            <img class="image-status" src="data:image/jpeg;base64,{{image}}" alt="Avatar">
+        </div>
+        </div>
+        {{/each}}
   </div>
   <div class="right" style="flex: 1;">
 
