@@ -14,14 +14,14 @@
   "name": "facebook_clone",
   "description": "��#\u0000 \u0000f\u0000a\u0000c\u0000e\u0000b\u0000o\u0000o\u0000k\u0000_\u0000c\u0000l\u0000o\u0000n\u0000e\u0000\r\u0000 \u0000",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "index.js",
   "engines": {
     "node": "16.x"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js",
-    "start": "node app.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
