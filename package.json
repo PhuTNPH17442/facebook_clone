@@ -12,7 +12,7 @@
     "multer": "^1.4.5-lts.1"
   },
   "name": "facebook_clone",
-  "description": "��#\u0000 \u0000f\u0000a\u0000c\u0000e\u0000b\u0000o\u0000o\u0000k\u0000_\u0000c\u0000l\u0000o\u0000n\u0000e\u0000\r\u0000 \u0000",
+  "description": "",
   "version": "1.0.0",
   "main": "index.js",
   "engines": {
